@@ -1,15 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f7f9fc;
-  margin: 0;
-  padding: 0;
-}
-
-.App {
-  text-align: center;
-  padding: 20px;
-}
-
 .tech-list {
   display: flex;
   flex-direction: column;
@@ -76,6 +64,11 @@ body {
 .search-box span {
   margin-left: 10px;
   color: #555;
+}
+
+.status-btn
+{
+    display: none;
 }
 
 .notes-section {
