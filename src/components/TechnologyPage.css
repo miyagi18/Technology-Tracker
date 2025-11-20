@@ -1,0 +1,66 @@
+.technology-details-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 10px 0;
+  margin-bottom: 15px;
+  transition: color 0.2s;
+}
+
+.back-btn:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.details-header {
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  transition: background-color 0.3s ease;
+}
+
+.details-header h1 {
+  margin-top: 0;
+  color: #333;
+}
+
+.details-header .description {
+  font-size: 1.1rem;
+  color: #555;
+  line-height: 1.6;
+}
+
+.status-control, .deadline-control {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255,255,255,0.5);
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.status-control select, .deadline-control input {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.details-body {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  margin-top: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}

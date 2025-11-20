@@ -1,0 +1,29 @@
+[
+  {
+    "id": 1,
+    "title": "React",
+    "description": "Изучение базовых компонентов",
+    "status": "in-progress",
+    "notes": "go",
+    "category": "frontend",
+    "deadline": "2025-11-29"
+  },
+  {
+    "id": 2,
+    "title": "Vue",
+    "description": "изучить и сравнить с React",
+    "status": "not-started",
+    "notes": "",
+    "category": "backend",
+    "deadline": ""
+  },
+  {
+    "id": 3,
+    "title": "Postgres",
+    "description": "Изучение основных операций",
+    "status": "not-started",
+    "notes": "",
+    "category": "backend",
+    "deadline": ""
+  }
+]

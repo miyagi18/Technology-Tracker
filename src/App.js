@@ -1,94 +1,65 @@
-import React, { useState } from 'react';
-// Импортируем наши новые хуки и компоненты
-import useTechnologies from './useTechnologies';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import useTechnologies from './useTechnologies'; // Хук должен быть в src/
 import ProgressBar from './components/ProgressBar';
-import TechnologyCard from './components/TechnologyCard'; 
-import QuickActions from './QuickActions'; // И этот
-
-// Убираем импорты Statistics, ProgressHeader и старый TechnologyNotes,
-// так как они больше не нужны или перемещены
+import HomePage from './components/HomePage';
+import TechnologyPage from './components/TechnologyPage';
 
 function App() {
-  // Вся сложная логика теперь спрятана в хуке!
   const { 
     technologies, 
     updateStatus, 
-    updateNotes, 
+    updateNotes,    // <--- Эту функцию мы передаем вниз
+    updateDeadline,     
+    importTechnologies, 
     progress, 
     markAllCompleted, 
     resetAll 
   } = useTechnologies();
 
-  // Логику фильтрации и поиска оставляем в App.js, так как это логика Отображения (View)
-  const [filter, setFilter] = useState('all');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  // Фильтрация по статусу
-  const filteredByStatus =
-    filter === 'all'
-      ? technologies
-      : technologies.filter(t => t.status === filter);
-
-  // Поиск по названию и описанию
-  const filteredTechnologies = filteredByStatus.filter(tech =>
-    tech.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    tech.description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
-    <div className="App">
-      <header className="app-header">
-        <h1>Трекер изучения технологий</h1>
-        {/* Используем наш новый ProgressBar */}
-        <ProgressBar 
-          progress={progress}
-          label="Общий прогресс"
-          color="#4CAF50"
-          height={20}
-        />
-      </header>
+    <Router>
+      <div className="App">
+        <header className="app-header">
+          <h1>Трекер изучения технологий</h1>
+          <ProgressBar 
+            progress={progress}
+            label="Общий прогресс"
+            color="#4CAF50"
+            height={20}
+          />
+        </header>
 
-      {/* Используем QuickActions из "Самостоятельной работы" */}
-      <QuickActions 
-        onMarkAllCompleted={markAllCompleted}
-        onResetAll={resetAll}
-        technologies={technologies} // для экспорта
-      />
-
-      {/* Оставляем фильтры и поиск */}
-      <div className="search-box">
-        <input
-          type="text"
-          placeholder="Поиск технологий..."
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-        />
-        <span>Найдено: {filteredTechnologies.length}</span>
-      </div>
-
-      <div className="filters">
-        <button onClick={() => setFilter('all')}>Все</button>
-        <button onClick={() => setFilter('not-started')}>Не начатые</button>
-        <button onClick={() => setFilter('in-progress')}>В процессе</button>
-        <button onClick={() => setFilter('completed')}>Выполненные</button>
-      </div>
-      
-      {/* Старый Statistics и ProgressHeader больше не нужны */}
-
-      <main className="app-main">
-        <div className="tech-list">
-          {filteredTechnologies.map(tech => (
-            // TechnologyCard теперь сам отвечает за заметки
-            <TechnologyCard
-              key={tech.id}
-              technology={tech}
-              onStatusChange={updateStatus} // Передаем функцию из хука
-              onNotesChange={updateNotes}    // Передаем функцию из хука
+        <main className="app-main">
+          <Routes>
+            <Route 
+              path="/" 
+              element={
+                <HomePage 
+                  technologies={technologies}
+                  onMarkAllCompleted={markAllCompleted}
+                  onResetAll={resetAll}
+                  onImport={importTechnologies}
+                  onStatusChange={updateStatus}
+                />
+              } 
             />
-          ))}
-        </div>
-      </main>
-    </div>
+            
+            <Route 
+              path="/tech/:id" 
+              element={
+                <TechnologyPage 
+                  technologies={technologies}
+                  onStatusChange={updateStatus}
+                  onNotesChange={updateNotes}       // <--- Важно: передаем updateNotes как onNotesChange
+                  onDeadlineChange={updateDeadline}
+                />
+              } 
+            />
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 }
 
