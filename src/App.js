@@ -1,74 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import TechnologyCard from './components/TechnologyCard';
-import ProgressHeader from './components/ProgressHeader';
-import QuickActions from './QuickActions';
-import TechnologyNotes from './TechnologyNotes';
+import React, { useState } from 'react';
+// Импортируем наши новые хуки и компоненты
+import useTechnologies from './useTechnologies';
+import ProgressBar from './components/ProgressBar';
+import TechnologyCard from './components/TechnologyCard'; 
+import QuickActions from './QuickActions'; // И этот
 
-const getInitialTechnologies = () => {
-  const saved = localStorage.getItem('techTrackerData');
-
-  if (saved)
-  {
-    console.log('Данные загружены из localStorage');
-    return JSON.parse(saved);
-  }
-
-  return [
-     { id: 1, title: 'React Components', description: 'Изучение базовых компонентов', status: 'not-started', notes: '' },
-    { id: 2, title: 'Vue Directives', description: 'Работа с директивами и шаблонами', status: 'in-progress', notes: '' },
-    { id: 3, title: 'Angular Routing', description: 'Создание маршрутов и навигации', status: 'completed', notes: '' },
-  ];
-};
-
+// Убираем импорты Statistics, ProgressHeader и старый TechnologyNotes,
+// так как они больше не нужны или перемещены
 
 function App() {
-  const [technologies, setTechnologies] = useState(getInitialTechnologies);
+  // Вся сложная логика теперь спрятана в хуке!
+  const { 
+    technologies, 
+    updateStatus, 
+    updateNotes, 
+    progress, 
+    markAllCompleted, 
+    resetAll 
+  } = useTechnologies();
 
+  // Логику фильтрации и поиска оставляем в App.js, так как это логика Отображения (View)
   const [filter, setFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
-
-  // Загружаем данные из localStorage
-  useEffect(() => {
-    localStorage.setItem('techTrackerData', JSON.stringify(technologies));
-    console.log('Данные сохранены в localStorage');
-  }, [technologies]);
-
-  // Сохраняем данные в localStorage
-  useEffect(() => {
-    localStorage.setItem('techTrackerData', JSON.stringify(technologies));
-    console.log('Данные сохранены в localStorage');
-  }, [technologies]);
-
-  const handleStatusChange = (id, newStatus) => {
-    setTechnologies(prev =>
-      prev.map(tech =>
-        tech.id === id ? {...tech, status: newStatus } : tech
-      )
-    );
-  };
-
-  const handleMarkAllDone = () => {
-    setTechnologies(prev => prev.map(t => ({ ...t, status: 'completed' })));
-  };
-
-  const handleResetAll = () => {
-    setTechnologies(prev => prev.map(t => ({ ...t, status: 'not-started' })));
-  };
-
-  const handlePickRandom = () => {
-    const notDone = technologies.filter(t => t.status !== 'completed');
-    if (notDone.length === 0) return;
-    const randomTech = notDone[Math.floor(Math.random() * notDone.length)];
-    alert(`Следующая технология: ${randomTech.title}`);
-  };
-
-  const updateTechnologyNotes = (techId, newNotes) => {
-    setTechnologies(prevTech =>
-      prevTech.map(tech =>
-        tech.id === techId ? { ...tech, notes: newNotes } : tech
-      )
-    );
-  };
 
   // Фильтрация по статусу
   const filteredByStatus =
@@ -84,14 +37,25 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Трекер изучения технологий</h1>
+      <header className="app-header">
+        <h1>Трекер изучения технологий</h1>
+        {/* Используем наш новый ProgressBar */}
+        <ProgressBar 
+          progress={progress}
+          label="Общий прогресс"
+          color="#4CAF50"
+          height={20}
+        />
+      </header>
 
-      <QuickActions
-        onMarkAllDone={handleMarkAllDone}
-        onResetAll={handleResetAll}
-        onPickRandom={handlePickRandom}
+      {/* Используем QuickActions из "Самостоятельной работы" */}
+      <QuickActions 
+        onMarkAllCompleted={markAllCompleted}
+        onResetAll={resetAll}
+        technologies={technologies} // для экспорта
       />
 
+      {/* Оставляем фильтры и поиск */}
       <div className="search-box">
         <input
           type="text"
@@ -108,22 +72,22 @@ function App() {
         <button onClick={() => setFilter('in-progress')}>В процессе</button>
         <button onClick={() => setFilter('completed')}>Выполненные</button>
       </div>
+      
+      {/* Старый Statistics и ProgressHeader больше не нужны */}
 
-      <ProgressHeader technologies={technologies}/>
-
-      <div className="tech-list">
-        {filteredTechnologies.map(tech => (
-          <div key={tech.id} className="tech-container">
-            <TechnologyCard tech={{ id: tech.id, name: tech.title, status: tech.status }} onStatusChange={handleStatusChange} />
-            <p>{tech.description}</p>
-            <TechnologyNotes
-              notes={tech.notes}
-              techId={tech.id}
-              onNotesChange={updateTechnologyNotes}
+      <main className="app-main">
+        <div className="tech-list">
+          {filteredTechnologies.map(tech => (
+            // TechnologyCard теперь сам отвечает за заметки
+            <TechnologyCard
+              key={tech.id}
+              technology={tech}
+              onStatusChange={updateStatus} // Передаем функцию из хука
+              onNotesChange={updateNotes}    // Передаем функцию из хука
             />
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
