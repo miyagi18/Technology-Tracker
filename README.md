@@ -47,8 +47,9 @@ src/
 │   ├── TechnologyPage.jsx
 │   ├── TechnologyPage.css
 │   └── QuickActions.jsx
-├── useLocalStorage.js
-├── useTechnologies.js
+├── hooks/
+│   ├── useLocalStorage.js
+│   └── useTechnologies.js
 ├── App.js
 ├── App.css
 ├── App.test.js
