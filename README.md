@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Трекер изучения технологий
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+React-приложение для отслеживания прогресса изучения различных технологий с возможностью управления статусами, заметками и сроками.
 
-## Available Scripts
+## 🚀 Функциональность
 
-In the project directory, you can run:
+### Основные возможности
+- **Отслеживание прогресса** - визуализация общего прогресса изучения технологий
+- **Управление статусами** - три статуса: "Не начато", "В процессе", "Выполнено"
+- **Система заметок** - возможность добавлять и редактировать заметки для каждой технологии
+- **Установка сроков** - настройка дедлайнов для изучения технологий
+- **Поиск и фильтрация** - быстрый поиск по названию и фильтрация по статусам
+- **Статистика** - отображение общей статистики по изучению
 
-### `npm start`
+### Страницы приложения
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+#### Главная страница (`HomePage`)
+- Сетка карточек технологий
+- Панель поиска и фильтров
+- Быстрые действия (отметить все выполненными, сбросить все)
+- Интерактивные карточки с hover-эффектами
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+#### Страница технологии (`TechnologyPage`)
+- Детальная информация о технологии
+- Управление статусом и дедлайном
+- Редактор заметок с автосохранением
+- Навигация назад к списку
 
-### `npm test`
+## 🛠 Технологии
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **React** - основная библиотека
+- **React Router** - навигация между страницами
+- **CSS3** - стилизация и анимации
+- **Local Storage** - сохранение данных в браузере
 
-### `npm run build`
+## 📁 Структура проекта
+src/
+├── components/
+│   ├── HomePage.jsx
+│   ├── HomePage.css
+│   ├── Modal.jsx
+│   ├── ProgressBar.jsx
+│   ├── ProgressHeader.jsx
+│   ├── ProgressHeader.css
+│   ├── TechnologyCard.jsx
+│   ├── TechnologyCard.css
+│   ├── TechnologyPage.jsx
+│   ├── TechnologyPage.css
+│   └── QuickActions.jsx
+├── useLocalStorage.js
+├── useTechnologies.js
+├── App.js
+├── App.css
+├── App.test.js
+├── index.js
+├── index.css
+├── logo.svg
+├── reportWebVitals.js
+├── setupTests.js
+└── TechnologyNotes.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 🎨 Дизайн и интерфейс
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Цветовая схема
+- **Не начато** - красный (#ff6b6b)
+- **В процессе** - бирюзовый (#4ecdc4) 
+- **Выполнено** - синий (#45b7d1)
+- **Основной акцент** - зеленый (#4CAF50)
 
-### `npm run eject`
+### Особенности UI/UX
+- Адаптивный дизайн
+- Плавные анимации и переходы
+- Интуитивная навигация
+- Визуальная обратная связь при взаимодействии
+- Карточный дизайн с тенями и скруглениями
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 🚀 Установка и запуск
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Предварительные требования
+- Node.js (версия 14 или выше)
+- npm или yarn
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Установка
+```bash
+# Клонирование репозитория
+git clone <repository-url>
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+# Установка зависимостей
+npm install
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+# Запуск в режиме разработки
+npm start
