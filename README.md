@@ -34,6 +34,7 @@ React-приложение для отслеживания прогресса и
 - **Local Storage** - сохранение данных в браузере
 
 ## 📁 Структура проекта
+```
 src/
 ├── components/
 │   ├── HomePage.jsx
@@ -47,9 +48,8 @@ src/
 │   ├── TechnologyPage.jsx
 │   ├── TechnologyPage.css
 │   └── QuickActions.jsx
-├── hooks/
-│   ├── useLocalStorage.js
-│   └── useTechnologies.js
+├── useLocalStorage.js
+├── useTechnologies.js
 ├── App.js
 ├── App.css
 ├── App.test.js
@@ -59,7 +59,7 @@ src/
 ├── reportWebVitals.js
 ├── setupTests.js
 └── TechnologyNotes.js
-
+```
 
 ## 🎨 Дизайн и интерфейс
 
